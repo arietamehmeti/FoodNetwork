@@ -18,7 +18,7 @@ import gr.academic.city.sdmd.foodnetwork.service.MealService;
 /**
  * Created by trumpets on 4/13/16.
  */
-public class CreateMealActivity extends AppCompatActivity {
+public class CreateMealActivity extends ToolBarActivity {
 
     private static final String EXTRA_MEAL_TYPE_SERVER_ID = "meal_type_server_id";
 
@@ -80,6 +80,16 @@ public class CreateMealActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_create_meal;
+    }
+
+    @Override
+    protected int getTitleResource() {
+        return R.string.create_meal_title;
     }
 
     private void saveNewMeal() {

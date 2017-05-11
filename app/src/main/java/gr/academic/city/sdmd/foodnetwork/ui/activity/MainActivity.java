@@ -18,7 +18,7 @@ import gr.academic.city.sdmd.foodnetwork.R;
 import gr.academic.city.sdmd.foodnetwork.db.FoodNetworkContract;
 import gr.academic.city.sdmd.foodnetwork.service.MealTypeService;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class MainActivity extends ToolBarActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String[] PROJECTION = {
             FoodNetworkContract.MealType._ID,
@@ -69,6 +69,16 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         });
 
         getSupportLoaderManager().initLoader(MEAL_TYPES_LOADER, null, this);
+    }
+
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected int getTitleResource() {
+        return R.string.main_activity_title;
     }
 
     @Override

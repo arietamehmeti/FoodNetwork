@@ -21,7 +21,7 @@ import gr.academic.city.sdmd.foodnetwork.db.FoodNetworkContract;
 /**
  * Created by trumpets on 4/13/16.
  */
-public class MealDetailsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class MealDetailsActivity extends ToolBarActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String EXTRA_MEAL_ID = "meal_id";
 
@@ -59,6 +59,16 @@ public class MealDetailsActivity extends AppCompatActivity implements LoaderMana
         tvCreationDate = (TextView) findViewById(R.id.tv_meal_creation_date);
 
         getSupportLoaderManager().initLoader(MEAL_LOADER, null, this);
+    }
+
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_meal_details;
+    }
+
+    @Override
+    protected int getTitleResource() {
+        return R.string.meal_details_title;
     }
 
     @Override

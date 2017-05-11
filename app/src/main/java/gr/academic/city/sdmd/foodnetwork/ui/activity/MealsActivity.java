@@ -12,6 +12,7 @@ import android.support.v4.widget.CursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -24,7 +25,7 @@ import gr.academic.city.sdmd.foodnetwork.service.MealService;
 /**
  * Created by trumpets on 4/24/17.
  */
-public class MealsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class MealsActivity extends ToolBarActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String EXTRA_MEAL_TYPE_SERVER_ID = "meal_type_server_id";
 
@@ -112,6 +113,26 @@ public class MealsActivity extends AppCompatActivity implements LoaderManager.Lo
         getSupportLoaderManager().initLoader(MEALS_LOADER, null, this);
 
         MealService.startFetchMeals(this, mealTypeServerId);
+    }
+
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_meals;
+    }
+
+    @Override
+    protected int getTitleResource() {
+        return R.string.meals_title;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Cursor c = getContentResolver().query(FoodNetworkContract.MealType.CONTENT_URI, new String[0], FoodNetworkContract.MealType._ID + " = " + mealTypeServerId, null, null );
+        while(c.moveToNext()){
+            getSupportActionBar().setTitle(c.getString(c.getColumnIndexOrThrow(FoodNetworkContract.MealType.COLUMN_NAME)));
+        }
     }
 
     @Override
